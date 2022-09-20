@@ -7,6 +7,7 @@ const Cart = (props) => {
   const { items } = useSelector((state) => state.cart);
 
   const [totalPrice, setTotalPrice] = useState(0);
+  const [shippingValue, setShippingValue] = useState(0);
 
   useEffect(() => {
     const cartTotalPrice = items.reduce(
@@ -14,6 +15,12 @@ const Cart = (props) => {
       0
     );
     setTotalPrice(cartTotalPrice);
+
+    setShippingValue(() => {
+      const totalAmount = items.reduce((acc, i) => acc + i.quantity, 0);
+      const cartShippingValue = totalAmount * 2.5;
+      return totalAmount > 4 ? cartShippingValue : 0;
+    });
   }, [items]);
 
   const emptyCartRenderer = !items.length ? (
@@ -42,6 +49,12 @@ const Cart = (props) => {
         <span>Total price</span>
         <div>
           <span>{totalPrice.toFixed(2)}</span>
+        </div>
+      </div>
+      <div>
+        <span>Shipping value</span>
+        <div>
+          <span>{shippingValue.toFixed(2)}</span>
         </div>
       </div>
     </div>
