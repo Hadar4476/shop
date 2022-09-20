@@ -6,9 +6,9 @@ const initialState = {
 };
 
 const initCart = (state) => {
-  const cartFromLocalStorage = localStorage.getItem("cart");
-  if (cartFromLocalStorage) {
-    state.items = JSON.parse(cartFromLocalStorage);
+  const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
+  if (cartFromLocalStorage && cartFromLocalStorage.length) {
+    state.items = cartFromLocalStorage;
   }
 };
 
