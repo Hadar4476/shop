@@ -35,6 +35,12 @@ const decreaseQuantity = (state, action) => {
   }
 };
 
+const removeCartItem = (state, action) => {
+  const productId = action.payload;
+  const productInCart = state.items.findIndex((i) => i.id === productId);
+  state.items.splice(productInCart, 1);
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -43,6 +49,7 @@ const cartSlice = createSlice({
     hideCart,
     increaseQuantity,
     decreaseQuantity,
+    removeCartItem,
   },
 });
 
