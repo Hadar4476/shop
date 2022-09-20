@@ -25,6 +25,16 @@ const increaseQuantity = (state, action) => {
   }
 };
 
+const decreaseQuantity = (state, action) => {
+  const productId = action.payload;
+  const productInCart = state.items.findIndex((i) => i.id === productId);
+  state.items[productInCart].quantity--;
+
+  if (!state.items[productInCart].quantity) {
+    state.items.splice(productInCart, 1);
+  }
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -32,6 +42,7 @@ const cartSlice = createSlice({
     showCart,
     hideCart,
     increaseQuantity,
+    decreaseQuantity,
   },
 });
 

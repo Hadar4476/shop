@@ -8,6 +8,8 @@ const Product = (props) => {
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  const shouldDisableDecrease = !items.find((i) => i.id === id);
+
   const onIncreaseQuantity = () => {
     const product = {
       id,
@@ -20,6 +22,14 @@ const Product = (props) => {
     dispatch(globalActions.cart.increaseQuantity(product));
   };
 
+  const onDecreaseQuantity = () => {
+    if (shouldDisableDecrease) {
+      return;
+    }
+
+    dispatch(globalActions.cart.decreaseQuantity(id));
+  };
+
   return (
     <div>
       <img src={image} alt={title} />
@@ -29,7 +39,9 @@ const Product = (props) => {
       </div>
       <div>
         <div>
-          <button>-</button>
+          <button onClick={onDecreaseQuantity} disabled={shouldDisableDecrease}>
+            -
+          </button>
           <button onClick={onIncreaseQuantity}>+</button>
         </div>
         <div>
