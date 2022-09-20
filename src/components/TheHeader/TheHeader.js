@@ -7,7 +7,7 @@ const { cart: actions } = globalActions;
 const TheHeader = () => {
   const dispatch = useDispatch();
 
-  const onToggleCart = () => {
+  const onOpenCart = () => {
     dispatch(actions.showCart());
   };
 
@@ -16,7 +16,7 @@ const TheHeader = () => {
       <div>
         <span>Shop</span>
         <nav>
-          <div onClick={onToggleCart}>
+          <div onClick={onOpenCart}>
             <span>Cart</span>
           </div>
         </nav>
