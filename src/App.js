@@ -17,6 +17,14 @@ const App = () => {
     dispatch(globalActions.products.initProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(globalActions.cart.initCart());
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
+
   const onCloseCart = () => {
     dispatch(globalActions.cart.hideCart());
   };

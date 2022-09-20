@@ -5,6 +5,13 @@ const initialState = {
   items: [],
 };
 
+const initCart = (state) => {
+  const cartFromLocalStorage = localStorage.getItem("cart");
+  if (cartFromLocalStorage) {
+    state.items = JSON.parse(cartFromLocalStorage);
+  }
+};
+
 const showCart = (state) => {
   state.shouldDisplay = true;
 };
@@ -45,6 +52,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    initCart,
     showCart,
     hideCart,
     increaseQuantity,
