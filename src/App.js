@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { globalActions } from "./store";
 
@@ -10,7 +10,7 @@ import Backdrop from "./components/UI/Backdrop/Backdrop";
 import "./App.css";
 
 const App = () => {
-  const { shouldDisplay } = useSelector((state) => state.cart);
+  const { items, shouldDisplay } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
