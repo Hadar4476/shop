@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import CartItem from "./CartItem/CartItem";
 
 import classes from "./Cart.module.scss";
 
 const Cart = (props) => {
+  const { displayState } = props;
   const { items } = useSelector((state) => state.cart);
 
   const [totalPrice, setTotalPrice] = useState(0);
@@ -25,28 +27,38 @@ const Cart = (props) => {
     });
   }, [items]);
 
+  const cartItemElements = items.length
+    ? items.map((i) => (
+        <CSSTransition
+          key={i.id}
+          timeout={300}
+          classNames="fade"
+          children={() => (
+            <CartItem
+              id={i.id}
+              title={i.title}
+              image={i.image}
+              price={i.price}
+              quantity={i.quantity}
+            />
+          )}
+        />
+      ))
+    : null;
+
   const emptyCartRenderer = !items.length ? (
     <div className={classes["empty-cart"]}>
       <span>Your cart is empty</span>
     </div>
   ) : null;
 
-  const cartItemElements = items.length
-    ? items.map((i) => (
-        <CartItem
-          key={i.id}
-          id={i.id}
-          title={i.title}
-          image={i.image}
-          price={i.price}
-          quantity={i.quantity}
-        />
-      ))
-    : null;
-
   const bodyRenderer = items.length ? (
     <div className={classes.body}>
-      <ul className={classes["cart-item-list"]}>{cartItemElements}</ul>
+      <TransitionGroup
+        component="ul"
+        className={classes["cart-item-list"]}
+        children={cartItemElements}
+      />
     </div>
   ) : null;
 
@@ -74,7 +86,7 @@ const Cart = (props) => {
   ) : null;
 
   return (
-    <div className={classes.cart}>
+    <div className={`${classes.cart} ${classes[`cart-${displayState}`]}`}>
       <div
         className={`${classes.header} d-flex align-items-center justify-content-center`}
       >

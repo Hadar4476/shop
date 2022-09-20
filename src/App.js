@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { globalActions } from "./store";
+import { Transition } from "react-transition-group";
 
 import TheHeader from "./components/TheHeader/TheHeader";
 import Products from "./components/Products/Products";
@@ -19,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(globalActions.cart.initCart());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(items));
@@ -29,19 +30,23 @@ const App = () => {
     dispatch(globalActions.cart.hideCart());
   };
 
-  const cartRenderer = shouldDisplay && (
-    <Fragment>
-      <Cart />
-      <Backdrop emitClose={onCloseCart} />
-    </Fragment>
-  );
-
   return (
-    <div>
+    <div className="App">
       <TheHeader />
       <main>
         <Products />
-        {cartRenderer}
+        <Transition
+          in={shouldDisplay}
+          timeout={400}
+          mountOnEnter
+          unmountOnExit
+          children={(state) => (
+            <Fragment>
+              <Cart displayState={state} />
+              <Backdrop displayState={state} emitClose={onCloseCart} />
+            </Fragment>
+          )}
+        />
       </main>
     </div>
   );

@@ -25,6 +25,18 @@
       position: relative;
       cursor: pointer;
       gap: 5px;
+
+      .badge {
+        position: absolute;
+        background-color: $color-red;
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        color: $color-white;
+        top: -12px;
+        left: -12px;
+        font-size: 12px;
+      }
     }
   }
 
@@ -48,6 +60,14 @@
         .text {
           font-weight: bold;
           color: $color-black;
+        }
+
+        .badge {
+          height: 20px;
+          width: 20px;
+          top: -5px;
+          left: -5px;
+          font-size: 14px;
         }
       }
 
@@ -73,6 +93,15 @@
 
         .text {
           font-size: 20px;
+          font-weight: bold;
+        }
+
+        .badge {
+          height: 25px;
+          width: 25px;
+          top: -5px;
+          left: -5px;
+          font-size: 14px;
           font-weight: bold;
         }
       }
